@@ -9,95 +9,95 @@
 import os
 import json
 
-# def create_path(file_name):
-#     script_dir = os.path.dirname(os.path.realpath(__file__))
-#     print(script_dir)
-#     return os.path.join(script_dir, file_name)
-#
-# def serialize_json(file_name, data):
-#     path = create_path(file_name)
-#     with open(path, 'w') as file:
-#         json.dump(data, file, indent=4, ensure_ascii=False)
-#
-# def deserialize_json(file_name):
-#     path = create_path(file_name)
-#     with open(path, 'r') as file:
-#         data = json.load(file)
-#     return data
-#
-# try:
-#     file_name = 'db.json'
-#     data_base = {"Italy": "Rome", 'Spain': "Madrid", "Germany": "Berlin"}
-#     serialize_json(file_name, data_base)
-#     deserialized_employee = deserialize_json(file_name)
-#     print(deserialized_employee)
-# except Exception as e:
-#     print(e)
-#
-# def add_json():
-#     print("Adding Data to the Dictionary")
-#     data = json.load(open("db.json"))
-#     country = input("Country: ")
-#     capital = input("Capital: ")
-#     if country not in data:
-#         data[country] = capital
-#     else:
-#         print('This country already exists.')
-#     with open("db.json", "w") as file:
-#         json.dump(data, file, indent=4, ensure_ascii=False)
-#     print("Data added to dictionary")
-#
-# def del_json():
-#     print("Removing data from a dictionary")
-#     data = json.load(open("db.json"))
-#     country = input("Country: ")
-#     if country in data:
-#         del data[country]
-#     else:
-#         print('Not find.')
-#     with open("db.json", "w") as file:
-#         json.dump(data, file, indent=4, ensure_ascii=False)
-#     print("Data copied from dictionary")
+def create_path(file_name):
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+    print(script_dir)
+    return os.path.join(script_dir, file_name)
 
-# def change_json():
-#     print("Changing Dictionary Data")
-#     data = json.load(open("db.json"))
-#     country = input("Country: ")
-#     if country in data:
-#         new_data_base = {input("Country"): input("Capital"),}
-#         data[country] = new_data_base
-#     else:
-#         print('Not find.')
-#     with open("db.json", "w") as file:
-#         json.dump(data, file, indent=4, ensure_ascii=False)
-#     print("Data replaced in dictionary")
+def serialize_json(file_name, data):
+    path = create_path(file_name)
+    with open(path, 'w') as file:
+        json.dump(data, file, indent=4, ensure_ascii=False)
 
-# def look_up():
-#     print("Show file details")
-#     data = json.load(open("db.json"))
-#     with open("db.json", "w") as file:
-#         json.dump(data, file, indent=4)
-#         for country, capital in data.items():
-#             print(f"{country}: {capital}")
-#
-# while True:
-#     print('Data_Base')
-#     print('--------------')
-#     print('1. add_json')
-#     print('2. del_json')
-#     print('3. change_json')
-#     print('4. look_up_json')
-#     print('5. Exit')
-#     print('--------------')
-#     choice = int(input('Enter action: '))
-#     if choice == 0: break
-#     elif choice == 1: add_json()
-#     elif choice == 2: del_json()
-#     elif choice == 3: change_json()
-#     elif choice == 4: look_up()
-#     elif choice == 5:
-#         break
-#     else: print('Error')
+def deserialize_json(file_name):
+    path = create_path(file_name)
+    with open(path, 'r') as file:
+        data = json.load(file)
+    return data
+
+try:
+    file_name = 'db.json'
+    data_base = {"Italy": "Rome", 'Spain': "Madrid", "Germany": "Berlin"}
+    serialize_json(file_name, data_base)
+    deserialized_employee = deserialize_json(file_name)
+    print(deserialized_employee)
+except Exception as e:
+    print(e)
+
+def add_json():
+    print("Adding Data to the Dictionary")
+    data = json.load(open("db.json"))
+    country = input("Country: ")
+    capital = input("Capital: ")
+    if country not in data:
+        data[country] = capital
+    else:
+        print('This country already exists.')
+    with open("db.json", "w") as file:
+        json.dump(data, file, indent=4, ensure_ascii=False)
+    print("Data added to dictionary")
+
+def del_json():
+    print("Removing data from a dictionary")
+    data = json.load(open("db.json"))
+    country = input("Country: ")
+    if country in data:
+        del data[country]
+    else:
+        print('Not find.')
+    with open("db.json", "w") as file:
+        json.dump(data, file, indent=4, ensure_ascii=False)
+    print("Data copied from dictionary")
+
+def change_json():
+    print("Changing Dictionary Data")
+    data = json.load(open("db.json"))
+    country = input("Country: ")
+    if country in data:
+        new_data_base = {input("Country"): input("Capital"),}
+        data[country] = new_data_base
+    else:
+        print('Not find.')
+    with open("db.json", "w") as file:
+        json.dump(data, file, indent=4, ensure_ascii=False)
+    print("Data replaced in dictionary")
+
+def look_up():
+    print("Show file details")
+    data = json.load(open("db.json"))
+    with open("db.json", "w") as file:
+        json.dump(data, file, indent=4)
+        for country, capital in data.items():
+            print(f"{country}: {capital}")
+
+while True:
+    print('Data_Base')
+    print('--------------')
+    print('1. add_json')
+    print('2. del_json')
+    print('3. change_json')
+    print('4. look_up_json')
+    print('5. Exit')
+    print('--------------')
+    choice = int(input('Enter action: '))
+    if choice == 0: break
+    elif choice == 1: add_json()
+    elif choice == 2: del_json()
+    elif choice == 3: change_json()
+    elif choice == 4: look_up()
+    elif choice == 5:
+        break
+    else: print('Error')
 
 
 # Напишите информационную систему «Сотрудники».
