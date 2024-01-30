@@ -197,6 +197,7 @@ def get_menu_choice():
         choice = int(input('Enter action: '))
     return choice
 
+
 def find(catalog):
     name = input('Enter phone: ')
     for name, cost in catalog.items():
