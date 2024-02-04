@@ -2,15 +2,87 @@
 # К уже реализованному классу «Дробь» добавьте статический метод,
 # который при вызове возвращает количество созданных объектов класса «Дробь».
 
+class Fraction:
+    count = 0
+    def __init__(self, numerator, denomerator):
+        self.numerator = numerator
+        self.denomerator = denomerator
+        Fraction.count += 1
+        if self.denomerator == 0:
+            return ("You can't divide by zero")
 
+    def show(self):
+        print(self.numerator, "/", self.denomerator)
+
+    def Add(self, other):
+        return (self.numerator*other.denomerator + self.denomerator*other.numerator) / (self.denomerator*other.denomerator)
+    def Sub(self, other):
+        return (self.numerator*other.denomerator - self.denomerator*other.numerator) / (self.denomerator*other.denomerator)
+    def Mul(self, other):
+        return (self.numerator*other.numerator / self.denomerator*other.denomerator)
+    def Div(self, other):
+        return (self.numerator*other.denomerator /  self.denomerator*other.numerator)
+
+    @staticmethod
+    def get_count():
+        print('Number of created objects of the “Fraction” class :', Fraction.count)
+
+f1 = Fraction(2,4)
+f2 = Fraction(3,2)
+Fraction.get_count()
+f3 = Fraction.Add(f1,f2)
+f4 = Fraction.Sub(f1,f2)
+f5 = Fraction.Mul(f1,f2)
+f6 = Fraction.Div(f1,f2)
+print((f1.show()), f2.show())
+print(f"Addition =  {f3}")
+print(f"Subtraction = {f4}")
+print(f"Multiplication = {f5}")
+print(f"Division = {f6}")
 
 # Задание 2
 # Создайте класс для конвертирования температуры из Цельсия в Фаренгейт и наоборот. У класса должно быть
-# два статических метода: для перевода из Цельсия в Фаренгейт и # для перевода из Фаренгейта в Цельсий. Также
-# класс должен считать количество подсчетов температуры и # возвращать это значение с помощью статического метода.
+# два статических метода: для перевода из Цельсия в Фаренгейт и для перевода из Фаренгейта в Цельсий. Также
+# класс должен считать количество подсчетов температуры и возвращать это значение с помощью статического метода.
 
+class Temperature:
+    counter = 0
+    isCelsius = False
+    temperature = int()
 
+    def __init__(self, temperature, isCelsius=False):
+        self.temperature = temperature
+        self.isCelsius = isCelsius
 
+    def print(self):
+        if self.isCelsius == True:
+            print(f'Temperature: {self.temperature} C')
+        else:
+            print(f'Temperature: {self.temperature} F')
+
+    def getCounter(self):
+        print(f'Number of temperature counts: {self.counter}')
+
+    @staticmethod
+    def getF():
+        Temperature.counter += 1
+        Temperature.isCelsius = False
+        num = Temperature.temperature * 1.8 + 32
+        print(num)
+
+    @staticmethod
+    def getC():
+        Temperature.counter += 1
+        Temperature.isCelsius = True
+        num = (Temperature.temperature -32) / 1.8
+        print(num)
+
+temp = Temperature(30, False)
+temp.print()
+temp.getF()
+temp.print()
+temp.getC()
+temp.getCounter()
 
 # Задание 3
 # Создайте класс Device, который содержит информацию об устройстве.
@@ -83,7 +155,6 @@ print("Meat Grinder: ")
 myMeatGrinder = MeatGrinder("Tefal", 2021, 1500, "black", 3)
 myMeatGrinder.show_info()
 myMeatGrinder.destination()
-
 
 # Задание 4
 # Создайте класс Ship, который содержит информацию о корабле.
