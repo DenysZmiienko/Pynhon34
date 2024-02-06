@@ -57,7 +57,54 @@ print(f1.__float__())
 #  Проверка на неравенство площадей квартир (операция !=);
 #  Сравнение двух квартир по цене (операции > < <= >=).
 
+class Flat:
+    def __init__(self, area, cost):
+        self.area = area
+        self.cost = cost
+    def showInfo(self):
+        print(f"Area Flat: {self.area} Cost Flat:{self.cost}")
+    def __str__(self):
+        return f"Area Flat: {self.area} Cost Flat:{self.cost}"
+    def __eq__(self, other):
+        if self.area == other.area and self.cost == other.cost:
+            return True
+        else:
+            return False
+    def __ne__(self, other):
+        if self.area != other.area and self.cost != other.cost:
+            return True
+        else:
+            return False
+    def __lt__(self, other):
+        if self.area > other.area and self.cost > other.cost:
+            return True
+        else:
+            return False
+    def __gt__(self, other):
+        if self.area < other.area and self.cost < other.cost:
+            return True
+        else:
+            return False
+    def __le__(self, other):
+        if self.area <= other.area and self.cost <= other.cost:
+            return True
+        else:
+            return False
+    def __ge__(self, other):
+        if self.area >= other.area and self.cost >= other.cost:
+            return True
+        else:
+            return False
 
+flat1 = Flat(48.5, 30500)
+flat2 = Flat(61.5, 45000)
+for item in (flat1, flat2):
+    item.showInfo()
+
+print(flat1 > flat2)
+print(flat1 < flat2)
+print(flat1 >= flat2)
+print(flat1 <= flat2)
 
 # Задание 3
 # Создать простой калькулятор, используя полиморфизм для выполнения арифметических операций над числами.
