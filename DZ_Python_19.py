@@ -170,10 +170,10 @@ class Game():
     def fire(self):
         print("Enemy", enemy.name, "attacks!")
         while player.is_alive() and enemy.is_alive():
-            print("\n" + "-" * 20)
+            print("\n" + "-" * 100)
             player.print_status()
             enemy.print_status()
-            print("-" * 20 + "\n")
+            print("-" * 100 + "\n")
 
             player_damage = max(0, player.attack - enemy.defense)
             enemy.take_damage(player_damage)
