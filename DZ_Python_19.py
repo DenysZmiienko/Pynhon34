@@ -17,40 +17,40 @@
 # 7.Сравните объемы памяти, используемые объектами класса Contact и OptimizedContact.
 # Какие выводы можно сделать о разнице в потреблении памяти?
 
-# import sys
-# class Contact:
-#     def __init__(self,first_name,last_name,email,phone_number):
-#         self.first_name = first_name
-#         self.last_name = last_name
-#         self.email = email
-#         self.phone_number = phone_number
-#
-#     def showInfoContact(self):
-#         return (f"Contact: first_name: {self.first_name}, last_name {self.last_name}, email {self.email},"
-#                 f" phone_number {self.phone_number}")
-#
-# class OptimizedContact:
-#     __slots__ = ("first_name","last_name","email","phone_number")
-#     def __init__(self,first_name,last_name,email,phone_number):
-#         self.first_name = first_name
-#         self.last_name = last_name
-#         self.email = email
-#         self.phone_number = phone_number
-#
-# contact1 = Contact("Alex", "Korobka", 'alex.korobka@ukr.net', "+38 099 111 11 11")
-# contact2 = Contact("Fil", "Pulaskis", 'f.pul@fin.net', "+51 033 222 22 22")
-# print("Without __slots__")
-# print(contact1.showInfoContact())
-# print(contact2.showInfoContact())
-# print("WITH __slots__")
-# print("Contact: ", contact1.__dict__)
-# print("Contact: ", contact2.__dict__)
-# print("Size of an object in bytes Without __slots__")
-# print(sys.getsizeof(contact1.showInfoContact()))
-# print(sys.getsizeof(contact2.showInfoContact()))
-# print("Size of an object in bytes WITH __slots__")
-# print(sys.getsizeof(contact1))
-# print(sys.getsizeof(contact2))
+import sys
+class Contact:
+    def __init__(self,first_name,last_name,email,phone_number):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.email = email
+        self.phone_number = phone_number
+
+    def showInfoContact(self):
+        return (f"Contact: first_name: {self.first_name}, last_name {self.last_name}, email {self.email},"
+                f" phone_number {self.phone_number}")
+
+class OptimizedContact:
+    __slots__ = ("first_name","last_name","email","phone_number")
+    def __init__(self,first_name,last_name,email,phone_number):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.email = email
+        self.phone_number = phone_number
+
+contact1 = Contact("Alex", "Korobka", 'alex.korobka@ukr.net', "+38 099 111 11 11")
+contact2 = Contact("Fil", "Pulaskis", 'f.pul@fin.net', "+51 033 222 22 22")
+print("Without __slots__")
+print(contact1.showInfoContact())
+print(contact2.showInfoContact())
+print("WITH __slots__")
+print("Contact: ", contact1.__dict__)
+print("Contact: ", contact2.__dict__)
+print("Size of an object in bytes Without __slots__")
+print(sys.getsizeof(contact1.showInfoContact()))
+print(sys.getsizeof(contact2.showInfoContact()))
+print("Size of an object in bytes WITH __slots__")
+print(sys.getsizeof(contact1))
+print(sys.getsizeof(contact2))
 
 # Задание: Разработка игры "Бои кораблей"
 # 1. Создайте абстрактный базовый класс Ship с абстрактными методами:
@@ -73,17 +73,16 @@
 # Напишите краткое описание вашей игры и как абстрактные базовые классы помогли вам упростить разработку и обеспечить согласованный
 # интерфейс для различных типов кораблей.
 
+import random
 from abc import ABC, abstractmethod
 
 class ShipABC(ABC):
-    def __init__(self, name, appointment, speed, weapons):
+    def __init__(self, name,country):
         self.name = name
-        self.appointment = appointment
-        self.speed = speed
-        self.weapons = weapons
+        self.country = country
 
     def showInfo(self):
-        print(f"Name: {self.name}\nAppointment:{self.appointment}\nSpeed:{self.speed}\nWeapons:{self.weapons}")
+        print(f"Name: {self.name}\nCountry:{self.country}")
 
     @abstractmethod
     def fire(self):
@@ -94,36 +93,70 @@ class ShipABC(ABC):
         pass
 
 class Battleship(ShipABC):
-    def __init__(self, name, appointment, speed, weapons,size):
-        super().__init__(name, appointment, speed, weapons)
-        self.size = size
+    def __init__(self,name,country):
+        super().__init__(name,country)
 
     def fire(self):
-        print(f"I am a warship and attack with attrition, missiles and torpedoes!")
+        pass
 
     def move(self):
-        print(f"The ship moves only on the surface")
+        print(f"The player has gone to sea and is ready to attack and repel the attack!")
 
     def showInfo(self):
         super().showInfo()
-        print(f"Size:{self.size}")
 
 class Submarine(ShipABC):
-    def __init__(self, name, appointment, speed, weapons, generation):
-        super().__init__(name, appointment, speed, weapons)
-        self.generation = generation
+    def __init__(self, name, country):
+        super().__init__(name, country)
 
     def fire(self):
-        print(f"I'm a submarine and I attack with missiles and torpedoes!")
+        pass
 
     def move(self):
-        print(f"The submarine moves both underwater and on the surface")
+        print(f"The player has gone to sea and is ready to attack and repel the attack!")
 
     def showInfo(self):
         super().showInfo()
-        print(f"Size:{self.generation}")
 
-class Game:
+class Player(Battleship, Submarine):
+    def __init__(self, name_p, name, country, health, attack, defense, treasure, gold):
+        super().__init__(name, country)
+        self.name_p = name_p
+        self.health = health
+        self.attack = attack
+        self.defense = defense
+        self.treasure = treasure
+        self.gold = gold
+
+    def is_alive(self):
+        return self.health > 0
+
+    def print_status(self):
+        print(f"{self.name}: Health = {self.health}, Attack = {self.attack}, Defense = {self.defense},"
+              f" Treasure = {self.treasure}")
+
+class Enemy(Battleship, Submarine):
+    def __init__(self,name_e, name, country, health, attack, defense, gold_reward):
+        super().__init__(name, country)
+        self.name_e = name_e
+        self.name = name
+        self.health = health
+        self.attacking = attack
+        self.defense = defense
+        self.gold_reward = gold_reward
+
+    def is_alive(self):
+        return self.health > 0
+
+    def take_damage(self, damage):
+        self.health -= damage
+
+    def print_status(self):
+        print(f"{self.name}: Health = {self.health}, Attacking = {self.attacking},"
+              f" Defense = {self.defense}")
+
+class Game():
+
     def __init__(self):
         self.players = []
 
@@ -134,22 +167,54 @@ class Game:
             else:
                 print("Error type of player!")
 
-    def showPlayers(self):
+    def fire(self):
+        print("Enemy", enemy.name, "attacks!")
+        while player.is_alive() and enemy.is_alive():
+            print("\n" + "-" * 20)
+            player.print_status()
+            enemy.print_status()
+            print("-" * 20 + "\n")
+
+            player_damage = max(0, player.attack - enemy.defense)
+            enemy.take_damage(player_damage)
+            print(f"You hit the {enemy.name} for {player_damage} damage.")
+
+            if enemy.is_alive():
+                enemy_damage = max(0, enemy.attack - player.defense)
+                player.health -= enemy_damage
+                print(f"The {enemy.name} strikes you for {enemy_damage} damage.")
+
+            if player.is_alive():
+                print("\nVictory! You have defeated the", enemy.name + "!")
+                player.gold += enemy.gold_reward
+                print(f"You loot {enemy.gold_reward} gold from the {enemy.name}.")
+            else:
+                print("\nYou have been slain by the", enemy.name + "!")
+                print("Game Over")
+
+    def move(self):
         if self.players:
             for players in self.players:
-                players.showInfo()
+                players.move()
         else:
             print("Zero players")
 
-    def fight(self):
-        if self.players:
-            for players in self.players:
-                players.atack()
-        else:
-            print("Zero players")
+player = Player("DENDY",'Submarine "Virginia"',"USA",50,50,30,30, 50)
 
+enemy1 = Enemy("russian orc 1","Cruiser 'Moscow'", "russia", 2, 5, 10, 20)
+enemy2 = Enemy("russian orc 2", "BDK 'Saratov'", "russia", 3, 5,10, 20)
+enemy3 = Enemy("russian orc 3", "Submarine boat 'Rostov-on-Don'", "russia", 4, 5, 10, 20)
 
-battleship1 = Battleship("Getman Saghaydachny", "Fregat", 25, "Rockets, cannon artillery", 180)
-battleship2 = Battleship("Smashing", "Destroyer", 30, "Torpedoes, cannon artillery", 67)
-submarine1 = Submarine("Virginia", "Multipurpose nuclear submarine", 32, "Mine-torpedo and missile weapons", 4)
-submarine2 = Submarine("Dolphin", "Diesel-electric submarine", 20, "Torpedoes, cannon artillery", 4)
+enemies = [enemy1, enemy2, enemy3]
+
+print("\nWelcome to World of Warships!\n")
+
+while player.is_alive():
+
+    enemy = random.choice(enemies)
+    newGame = Game()
+    newGame.addPlayer(player)
+    newGame.move()
+    newGame.fire()
+    if not input("Do you want to play another game? (yes/no): ").lower().startswith("y"):
+        break
